@@ -1,44 +1,45 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="Skeleton-2.0.4/css/skeleton.css">
-	<link rel="stylesheet" type="text/css" href="main.css"> 
+    <meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	
+	<link rel='stylesheet' type='text/css' href='Skeleton-2.0.4/css/skeleton.css'>
+	<link rel='stylesheet' type='text/css' href='main.css'>
+	
 	<title>SRTM Elevation Data in PHP</title>	
 </head>
 <body>
-<div class="container" id="container">
-	<main>
-		<h1>SRTM Elevation Data in PHP</h1>
-		 
-		<p>This is a demo of my PHP code to read v4 SRTM GeoTIFF data files.</p>
+	<div class='container' id='container'>
+		<main>
+			<h1>SRTM Elevation Data in PHP</h1>
+			 
+			<p>This is a demo of my PHP code to read v4 SRTM GeoTIFF data files.</p>
 
-		<p>You will first need to unzip the SRTM data file in <b>./GeoData</b>.
-		   otherwise the demo will not work. The data covers the UK from
-		   50°N to 55°N and 0° to 5°W (-5°).</p>
+			<p>You will first need to unzip the SRTM data file in <b>./GeoData</b>.
+			   otherwise the demo will not work. The data covers the UK from
+			   50°N to 55°N and 0° to 5°W (-5°).</p>
 
-		<p>Locations within the tile area but over the sea (e.g. 51.3, -4.5) 
-		   will show as -32768 (the SRTM "no data" value). Locations out of the tile range will
-		   throw an error and die this but can be supressed.</p>
+			<p>Locations within the tile area but over the sea (e.g. 51.3, -4.5) 
+			   will show as -32768 (the SRTM 'no data' value). Locations out of the tile range will
+			   throw an error and die this but can be supressed.</p>
 
-		<p>Try Mount Snowdon, which at 1085m at the peak is the highest mountain in
-		   Wales (53.0685, -4.0763).</p>
-		
-		<p><em>Lat</em> <input type="text" id="userLat">
-		   <em> Long</em> <input type="text" id="userLon">
-		   <button id="btnGetElevation">Get elevation</button></p>
+			<p>The default values below are for Mount Snowdon, which at 1085m at the peak 
+			   is the highest mountain inWales (53.0685, -4.0763).</p>
+			
+			<p><em>Lat</em> <input type='text' id='userLat' value='53.0685'>
+			   <em> Long</em> <input type='text' id='userLon' value='-4.0763'>
+			   
+			<button id='btnGetElevation'>Get elevation</button></p>
 
-		<p id="nag">You must enter a lat and Long!</p>		   
+			<p>Elevation in metres is: <b><span id='el'></span></b></span></p>
 
-		<p>Elevation in metres is: <b><span id="el"></span></b></span></p>
-
-	    <p id="googleMaps">Check location in <a id="googleLink" target="_blank" href="">Google Maps</a>.</p>		   
-				 			 
-		<p>You can also try out the <a href="speedTest.php">speed test</a> to see how fast it is on your machine.</p>													  		   		
-	</main> 
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
-<script src="elevations.js"></script>	
+			<p id='googleMaps'>Check location in <a id='googleLink' target='_blank' href=''>Google Maps</a>.</p>		   
+								 
+			<p>You can also try out the <a href='speedTest.php'>speed test</a> to see
+			how fast it is on your machine.</p>
+		</main> 
+	</div>
+	<script src='elevations.js'></script>		
 </body>
 </html>

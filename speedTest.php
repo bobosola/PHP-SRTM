@@ -37,7 +37,8 @@ $elapsed = number_format(microtime(true) - $start, 4);
     <div class="container" id="container">
         <main>
             <h1>SRTM Elevation Data in PHP Speed Test</h1>
-            <p>The straight line distance between London and Liverpool is approximately 
+			<p>NB: 2nd and subsequent runs will be much fast due to cacheing.</p>
+			<p>The straight line distance between London and Liverpool is approximately 
             <b><?php echo $distanceKm;?></b> kilometres (<b><?php echo $miles;?></b> miles).
             The line has <b><?php echo $ascent;?></b> metres of ascent and <b><?php echo $descent;?></b> metres of descent.         
             The code produced <b><?php echo $elevationsCount ;?></b> elevations every 90m (approx) along the line

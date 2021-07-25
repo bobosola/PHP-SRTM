@@ -32,10 +32,6 @@ main {
 span {
 	display: inline-block;
 }
-
-p#nag{
-	color:red;
-}
-p#nag, p#googleMaps{
+p#googleMaps{
 	display: none;
 }
