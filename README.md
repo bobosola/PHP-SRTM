@@ -29,7 +29,7 @@ The bilinear interpolation option tends to flatten out peaks and troughs. It can
 
 ## Running the demo
 You will need to:
-* unzip the file **GeoData/srtm_36_02.zip** into the same directory as the demo files (the zip can then be discarded)
+* unzip the file **GeoData/srtm_36_02.zip** into the same directory (GeoData) - the zip can then be discarded
 * copy all the files to a webserver running PHP
 * browse to index.htm
 
