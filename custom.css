@@ -1,0 +1,11 @@
+body {
+    font-size: 1.6rem;
+}
+#results{
+    font-size: small;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    overflow-wrap: break-word;
+}
+label {
+    display: inline;
+}

@@ -1,15 +1,18 @@
 # SRTM Elevation Data in PHP
-This repo contains PHP code (with a usage demo) to obtain worldwide elevation data from the freely-available 5°x5° 90m v4.1 [SRTM GeoTIFF](https://www2.jpl.nasa.gov/srtm/) data. It was written around 2010.
 
-The core code is in  **SRTMGeoTIFFReader.php**. The other files are just for the demo, which can also be [seen here](https://www.osola.org.uk/PHP-SRTM). My home site uses this code along with [JpGraph](https://jpgraph.net/) to make [profile graphs](https://www.osola.org.uk/elevations/) of the elevations between two user-chosen locations.
+[**November 2021 update** - *the demo site has been updated to use more current JS & PHP techniques and therefore no longer supports Internet Explorer. The main SRTM PHP reader class has also had a minor bugfix.*]
 
-The code determines which data file to read for a given location then uses file pointer arithmetic to read the elevation data from standard GEOTIFF data offsets. It is therefore orders of magnitude faster than ASCII file parsing or reading from a database. For example, my (2020) webserver returns 3378 elevations in around 30ms for the straight line between the two locations of London and Liverpool. This line is around 176 miles in length and the code calculates each elevation for every 90m (approx.) along the line.
+This repo contains PHP code with a usage demo to obtain worldwide elevation data from the freely-available 5°x5° 90m v4.1 [SRTM GeoTIFF](https://www2.jpl.nasa.gov/srtm/) data. It was written around 2010 so may require some updating for modern PHP practices.
+
+For Great Britain only, the GitHub repo [OSTerrain50-PHP](https://github.com/bobosola/OSTerrain50-PHP) contains similar functionality but instead uses the OS Terrain 50 data set. This is a better option for those interested in obtaining elevation data for Great Britain - see the [author's OS Terrain 50](https://osola.org.uk/osterrain50) page for more details.
+
+The PHP core code in this repo is in  **SRTMGeoTIFFReader.php**. The other files are just for the demo, which can also be seen live on the author's [demo site](https://www.osola.org.uk/PHP-SRTM). Another demo on the author's site uses this code along with [JpGraph](https://jpgraph.net/) to make [elevation profile graphs](https://www.osola.org.uk/srtm/) between two user-chosen locations.
+
+The code determines which SRTM data file to read for a given location then uses file pointer arithmetic to read the elevation data from standard GEOTIFF data offsets. It is therefore orders of magnitude faster than ASCII file parsing or reading from a database.
 
 
 ## Getting the data files
-The full set of SRTM elevation data files is downloadable from either 
-[CGIAR-CSI](http://srtm.csi.cgiar.org) or Derek Watkins' [SRTM Tile Grabber](http://dwtkns.com/srtm/).
-I recommend the latter as it's much more responsive and easier to use.
+The full set of SRTM elevation data files is downloadable from either [CGIAR-CSI](http://srtm.csi.cgiar.org) or Derek Watkins' [SRTM Tile Grabber](http://dwtkns.com/srtm/). I recommend the latter as it's much more responsive and easier to use.
 
 ## Code features
 The code can:
@@ -26,8 +29,8 @@ The bilinear interpolation option tends to flatten out peaks and troughs. It can
 
 ## Running the demo
 You will need to:
-* unzip the file **GeoData/srtm_36_02.zip** into the same directory (the zip can then be discarded)
-* copy all the files to a webserver running any version of PHP
+* unzip the file **GeoData/srtm_36_02.zip** into the same directory as the demo files (the zip can then be discarded)
+* copy all the files to a webserver running PHP
 * browse to index.htm
 
 
@@ -43,7 +46,7 @@ $reader = new SRTMGeoTIFFReader("path/to/SRTMdatafiles");
 $elevation = $reader->getElevation($lat, $lon, $interpolate = false);
 
 // get an array of elevations for every 90m between multiple waypoints
-// given an array of lats & lons as (lat1, lon1, ... latN, lonN)
+// given an array of lats & lons as [lat1, lon1, ... latN, lonN]
 $elevations = $reader->getMultipleElevations(
    $latLons, 
    $addIntermediatelatLons = true, 
@@ -52,6 +55,6 @@ $elevations = $reader->getMultipleElevations(
 ?>
 ```
 
-Usage is described in more detail in the class itself with worked examples in the demo code files. 
+Usage is described in more detail in the class code. 
 
-Be aware that empty data (e.g. over sea areas) is stored as 0x800 and returned as -32678, so such values must be handled accordingly in your code. More details in the [SRTM FAQ](http://srtm.csi.cgiar.org/faq/). 
+Be aware that areas of no data (e.g. over sea areas) are stored as 0x800 and returned as -32678, so such values must be handled accordingly in your code. More details in the [SRTM FAQ](http://srtm.csi.cgiar.org/faq/). 

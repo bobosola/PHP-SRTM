@@ -17,6 +17,7 @@ class SRTMGeoTIFFReader {
     // CGIAR-CSI SRTM GeoTIFF constants  
     const DEGREES_PER_TILE = 5;     // each tile is 5 x 5 degrees of lat/lon
     const PIXEL_DIST = 0.000833333; // the distance represented by one pixel (0 degrees 0 mins 3 secs of arc = 1/1200)
+    const PIXEL_DIST_METRES = 90;   // PIXEL_DIST in metres (approximately)
     const NO_DATA = -32768;         // a data void is the signed short 0x8000 (-32768)
 
     // read/write public properties
@@ -181,23 +182,29 @@ class SRTMGeoTIFFReader {
                 $startLon = $latLons[$i-1]; 
                 $endLon =  $latLons[$i+1];                
                 $dlon = $endLon - $startLon;
-                 
-                (Abs($dlat) >= Abs($dlon)) ? 
-                    $numSteps = floor(Abs($dlat) / self::PIXEL_DIST): 
-                    $numSteps = floor(Abs($dlon) / self::PIXEL_DIST); 
-                                  
-                // calculate approximate intermediate positions for each 3" 
-                // by simple proportion of dlat and dlon - assumes flat earth!         
-                $totNumSteps += $numSteps;
-                if  ($totNumSteps >= $limit) {
-                     $this->handleError(__METHOD__ , "maximum number of allowed point locations ($limit) exceeded while calculating intermediate points");  
-                }                    
-                                                           
-                for ($j = 0; $j < $numSteps; $j++) {
-                    $midLat = $startLat + ($j * $dlat / $numSteps) ;
-                    $midLon = $startLon + ($j * $dlon / $numSteps);
-                    $elevations[] = $this->getElevation($midLat, $midLon, $interpolate);                    
-                }            
+
+                // get the distance in metres between the two locations
+                $dist = $this->getDistance($startLat, $startLon,  $endLat, $endLon, false ) * 1000;
+                if ($dist > self::PIXEL_DIST_METRES) {
+
+                    // get the number of intermediate locations to 
+                    // generate between the two locations
+                    $stepDiff = $dist / self::PIXEL_DIST_METRES;
+                    $numSteps = ceil($stepDiff) -1;
+                                 
+                    // calculate the approximate intermediate positions
+                    // by simple proportion of dlat and dlon       
+                    $totNumSteps += $numSteps;
+                    if  ($totNumSteps >= $limit) {
+                        $this->handleError(__METHOD__ , "maximum number of allowed point locations ($limit) exceeded while calculating intermediate points");  
+                    } 
+
+                    for ($j = 0; $j < $numSteps; $j++) {
+                        $midLat = $startLat + ($j * $dlat / $stepDiff) ;
+                        $midLon = $startLon + ($j * $dlon / $stepDiff);
+                        $elevations[] = $this->getElevation($midLat, $midLon, $interpolate);                    
+                    }
+                }           
             }
             $elevations[] = $this->getElevation($endLat, $endLon, $interpolate);    
         }
@@ -586,5 +593,4 @@ class SRTMGeoTIFFReader {
             die();
         }
     }
-}                 
-?>
+}              

@@ -1,45 +1,34 @@
 <!DOCTYPE HTML>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	
-	<link rel='stylesheet' type='text/css' href='Skeleton-2.0.4/css/skeleton.css'>
-	<link rel='stylesheet' type='text/css' href='main.css'>
-	
-	<title>SRTM Elevation Data in PHP</title>	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="sakura.css">
+    <link rel="stylesheet" type="text/css" href="custom.css">
+    <title>SRTM 90 elevations</title>
 </head>
 <body>
-	<div class='container' id='container'>
-		<main>
-			<h1>SRTM Elevation Data in PHP</h1>
-			 
-			<p>This is a demo of my PHP code to read v4 SRTM GeoTIFF data files.</p>
+    <h1>PHP SRTM Reader Demo</h1>
 
-			<p>You will first need to unzip the SRTM data file in <b>./GeoData</b>.
-			   otherwise the demo will not work. The data covers the UK from
-			   50°N to 55°N and 0° to 5°W (-5°).</p>
+    <p>This is a minimal use case demo for the PHP class SRTMGeoTIFFReader
+        which generates worldwide elevation data.</p>
+    
+    <p>Mount Snowdon (1085m) in Wales and Luccombe Down (235m) on the Isle of Wight
+        are approximately 210 miles (338Km) apart. Locations values are latitidue &amp; longitude.</p>
 
-			<p>Locations within the tile area but over the sea (e.g. 51.3, -4.5) 
-			   will show as -32768 (the SRTM 'no data' value). Locations out of the tile range will
-			   throw an error and die this but can be supressed.</p>
+    <ul>
+        <li>Mount Snowdon: [53.06861, -4.07611]</li>
+        <li>Luccombe Down: [50.603611, -1.2025]</li>
+    </ul>
+     
+    <p>
+        <input type="checkbox" id="infills" checked>
+        <label for="infills">Include infill elevations every 90m between each location</label>
+    </p>
+    
+    <p><button id="btnElevations">Generate elevations</button></p>
 
-			<p>The default values below are for Mount Snowdon, which at 1085m at the peak 
-			   is the highest mountain inWales (53.0685, -4.0763).</p>
-			
-			<p><em>Lat</em> <input type='text' id='userLat' value='53.0685'>
-			   <em> Long</em> <input type='text' id='userLon' value='-4.0763'>
-			   
-			<button id='btnGetElevation'>Get elevation</button></p>
-
-			<p>Elevation in metres is: <b><span id='el'></span></b></span></p>
-
-			<p id='googleMaps'>Check location in <a id='googleLink' target='_blank' href=''>Google Maps</a>.</p>		   
-								 
-			<p>You can also try out the <a href='speedTest.php'>speed test</a> to see
-			how fast it is on your machine.</p>
-		</main> 
-	</div>
-	<script src='elevations.js'></script>		
+    <div id="results">Output will appear here...</div >
+    <script src="getElevations.js" defer></script>
 </body>
 </html>
