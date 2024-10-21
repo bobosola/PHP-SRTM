@@ -1,5 +1,7 @@
 # SRTM Elevation Data in PHP
 
+[**October 2024 update** - It appears that the SRTM 3 arc second (90m) data files are now almost impossible to obtain, so I cannot recommend anyone use this (now very old) code. I will leave it up here in case anyone manages to find a source of such files or wants to use it as a base to get ideas for reading other elevation data formats]
+
 [**November 2021 update** - *the demo site has been updated to use more current JS & PHP techniques and therefore no longer supports Internet Explorer. The main SRTM PHP reader class has also had a minor bugfix.*]
 
 This repo contains PHP code with a usage demo to obtain worldwide elevation data from the freely-available 5°x5° 90m v4.1 [SRTM GeoTIFF](https://www2.jpl.nasa.gov/srtm/) data. It was written around 2010 so may require some updating for modern PHP practices.
@@ -12,7 +14,7 @@ The code determines which SRTM data file to read for a given location then uses 
 
 
 ## Getting the data files
-The full set of SRTM elevation data files is downloadable from either [CGIAR-CSI](http://srtm.csi.cgiar.org) or Derek Watkins' [SRTM Tile Grabber](http://dwtkns.com/srtm/). I recommend the latter as it's much more responsive and easier to use.
+**Oct 2024: these sources are now dead - see update note at page top** ~~The full set of SRTM elevation data files is downloadable from either [CGIAR-CSI](http://srtm.csi.cgiar.org) or Derek Watkins' [SRTM Tile Grabber](http://dwtkns.com/srtm/). I recommend the latter as it's much more responsive and easier to use.~~
 
 ## Code features
 The code can:
